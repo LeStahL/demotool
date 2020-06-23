@@ -56,6 +56,7 @@ class AkaiAPC40MkII : public MidiController, QObject
     int codeFromColor(QColor color);
     void lightMatrix(int x, int y, QColor color);
     void lightSceneLaunchButton(int y, QColor color);
+    void setKnobSetting(ControlType type, int knob, int setting);
     ValueControl *control(ControlType type, int offset = 0);
     int matrixOffset(int x, int y);
     int bankOffset(int bank, int knob);
@@ -66,6 +67,7 @@ class AkaiAPC40MkII : public MidiController, QObject
     signals:
     void matrixLit(int x, int y, QColor color);
     void sceneLaunchButtonLit(int y, QColor color);
+    void knopSettingSent(ValueControl *knob, int newValue);
 
     private:
     QList<QColor> colors;

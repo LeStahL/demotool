@@ -8,6 +8,8 @@
 AkaiAPC40MkII::AkaiAPC40MkII(QString _inputKey, QString _outputKey, QString _name, int _type)
     : MidiController(_inputKey, _outputKey, _name, _type)
 {
+    int mask;
+
     // Lower faders
     QList<int> idList;
     idList << -1 << 0 << -1 << -1 << -1 << 7 << -1 << -1;
@@ -29,13 +31,14 @@ AkaiAPC40MkII::AkaiAPC40MkII(QString _inputKey, QString _outputKey, QString _nam
     // Right per-bank knobs
     idList.clear();
     idList << -1 << 0 << -1 << -1 << -1 << 16 << -1 << -1;
+    mask = ValueControl::Track | ValueControl::Voice | ValueControl::Note | ValueControl::Velocity | ValueControl::Amount | ValueControl::Number | ValueControl::Numerator | ValueControl::Denominator;
     for(int i=0; i<8; ++i) // Bank index
     {
         for(int j=0; j<8; ++j) // Knob index
         {
             idList[1] = i;
             idList[5] = 16+j;
-            controls.push_back(new ValueControl("Bank " + QString::number(i) + " knob " + QString::number(j), ValueControl::Track | ValueControl::Voice | ValueControl::Note | ValueControl::Velocity | ValueControl::Amount | ValueControl::Number | ValueControl::Numerator | ValueControl::Denominator, ValueControl::Value, idList, 0, 0, QList<int>()));
+            controls.push_back(new ValueControl("Bank " + QString::number(i) + " knob " + QString::number(j), mask, ValueControl::Value, idList, mask, ValueControl::Value, idList));
         }
     }
     // Master bank right knobs
@@ -43,7 +46,7 @@ AkaiAPC40MkII::AkaiAPC40MkII(QString _inputKey, QString _outputKey, QString _nam
     {
         idList[1] = 8;
         idList[5] = 16+j;
-        controls.push_back(new ValueControl("Master Bank knob " + QString::number(j), ValueControl::Track | ValueControl::Voice | ValueControl::Note | ValueControl::Velocity | ValueControl::Amount | ValueControl::Number | ValueControl::Numerator | ValueControl::Denominator, ValueControl::Value, idList, 0, 0, QList<int>()));
+        controls.push_back(new ValueControl("Master Bank knob " + QString::number(j), mask, ValueControl::Value, idList, mask, ValueControl::Value, idList));
     }
 
     // Top knobs
@@ -52,12 +55,12 @@ AkaiAPC40MkII::AkaiAPC40MkII(QString _inputKey, QString _outputKey, QString _nam
     for(int i=0; i<8; ++i)
     {
         idList[5] = 48 + i;
-        controls.push_back(new ValueControl("Top knob " + QString::number(i), ValueControl::Track | ValueControl::Voice | ValueControl::Note | ValueControl::Velocity | ValueControl::Amount | ValueControl::Number | ValueControl::Numerator | ValueControl::Denominator, ValueControl::Value, idList, 0, 0, QList<int>()));
+        controls.push_back(new ValueControl("Top knob " + QString::number(i), mask, ValueControl::Value, idList, mask, ValueControl::Value, idList));
     }
 
     // Button matrix
     idList.clear();
-    int mask = ValueControl::Track | ValueControl::Voice | ValueControl::Note | ValueControl::Amount | ValueControl::Number | ValueControl::Value | ValueControl::Numerator | ValueControl::Denominator;
+    mask = ValueControl::Track | ValueControl::Voice | ValueControl::Note | ValueControl::Amount | ValueControl::Number | ValueControl::Value | ValueControl::Numerator | ValueControl::Denominator;
     idList << -1 << 0 << 0 << -1 << -1 << -1 << -1 << -1;
     for(int i=0; i<40; ++i)
     {
@@ -307,12 +310,18 @@ AkaiAPC40MkII::AkaiAPC40MkII(QString _inputKey, QString _outputKey, QString _nam
         << QColor("#B35F00")
         << QColor("#4B1502");
 
+    // Startup test
     for(int a = 0; a < 100; ++a)
-    for(int i=0; i<8; ++i)
-        for(int j=0; j<5; ++j)
+    {
+        for(int i=0; i<8; ++i)
         {
-            lightMatrix(i, j, QColor::fromRgbF(.5+.5*cos(.1*a+i),.5+.5*cos(.1*a+j+2.),.5+.5*cos(.1*a+i+4.)));
+            for(int j=0; j<5; ++j)
+            {
+                lightMatrix(i, j, QColor::fromRgbF(.5+.5*cos(.1*a+i),.5+.5*cos(.1*a+j+2.),.5+.5*cos(.1*a+i+4.)));
+            }
+            setKnobSetting(MasterBankKnob, i, (int)(127.*(.5+.5*sin(.1*a))));
         }
+    }
 }
 
 AkaiAPC40MkII::~AkaiAPC40MkII()
@@ -322,6 +331,14 @@ AkaiAPC40MkII::~AkaiAPC40MkII()
         {
             lightMatrix(i, j, Qt::black);
         }
+}
+
+void AkaiAPC40MkII::setKnobSetting(ControlType type, int knob, int setting)
+{
+    ValueControl *knobControl = control(type, knob);
+    QMidiEvent event = knobControl->setValue(setting);
+    midiOut->sendEvent(event);
+    emit knopSettingSent(knobControl, setting);
 }
 
 int AkaiAPC40MkII::codeFromColor(QColor color)
