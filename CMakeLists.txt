@@ -84,4 +84,25 @@ endif()
 
 add_custom_command(TARGET ${PROJECT_NAME} COMMAND ${CMAKE_COMMAND} -E copy_directory "${CMAKE_SOURCE_DIR}/data" "$<TARGET_FILE_DIR:${PROJECT_NAME}>/data")
 
+# Test TextEditorWidget non-invasively first
+add_executable(texteditorwidgettest 
+    test/TextEditorWidgetTest.cpp
+    src/editor/TextEditorWidget.cpp
 
+    demotool.qrc
+
+    src/editor/TextEditorWidget.ui
+)
+target_link_libraries(texteditorwidgettest Qt5::Core Qt5::Gui Qt5::Widgets)
+target_include_directories(texteditorwidgettest PRIVATE
+    "${CMAKE_SOURCE_DIR}/src"
+    "${CMAKE_SOURCE_DIR}/src/editor"
+    "${CMAKE_SOURCE_DUR}"
+)
+if(WIN32)
+    get_filename_component(_qt_bin_dir "${QT_QMAKE_EXECUTABLE}" DIRECTORY)
+    find_program(WINDEPLOYQT_EXECUTABLE NAMES windeployqt.exe HINTS "${_qt_bin_dir}")
+    message("Found windeployqt executable: ${WINDEPLOYQT_EXECUTABLE}")
+    message("Binary is in: $<TARGET_FILE_DIR:texteditorwidgettest>")
+    add_custom_command(TARGET texteditorwidgettest COMMAND ${WINDEPLOYQT_EXECUTABLE} "$<TARGET_FILE:texteditorwidgettest>")
+endif()

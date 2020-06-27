@@ -1,0 +1,8 @@
+<RCC>
+  <qresource>
+    <file>thirdparty/Hack/bin/ttf/Hack-Bold.ttf</file>
+    <file>thirdparty/Hack/bin/ttf/Hack-BoldItalic.ttf</file>
+    <file>thirdparty/Hack/bin/ttf/Hack-Italic.ttf</file>
+    <file>thirdparty/Hack/bin/ttf/Hack-Regular.ttf</file>
+  </qresource>
+</RCC>
