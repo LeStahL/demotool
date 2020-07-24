@@ -6,6 +6,10 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTORCC ON)
 
+if(WIN32)
+    set(CMAKE_WIN32_EXECUTABLE OFF)
+endif()
+
 set(CMAKE_PREFIX_PATH ${CMAKE_PREFIX_PATH} "C:\\Qt\\5.15.0\\msvc2019_64\\")
 
 find_package(Qt5 COMPONENTS Core Gui Widgets)
@@ -92,8 +96,24 @@ add_executable(texteditorwidgettest
     demotool.qrc
 
     src/editor/TextEditorWidget.ui
+
+    # Matrix model/view/controller
+    src/editor/LineEdit.cpp
+    src/editor/LineEditDelegate.cpp
+    src/editor/Matrix.cpp
+    src/editor/MatrixAddColumnCommand.cpp
+    src/editor/MatrixAddRowCommand.cpp
+    src/editor/MatrixChangeRowNameCommand.cpp
+    # TODO: src/editor/MatrixChangeColumnNameCommand.cpp
+    src/editor/MatrixHeaderView.cpp
+    src/editor/MatrixModel.cpp
+    src/editor/ColorProvider.cpp
+    src/editor/MatrixRemoveColumnCommand.cpp
+    src/editor/MatrixRemoveRowCommand.cpp
+    src/editor/MatrixValueChangeCommand.cpp
+    src/editor/MatrixView.cpp
 )
-target_link_libraries(texteditorwidgettest Qt5::Core Qt5::Gui Qt5::Widgets)
+target_link_libraries(texteditorwidgettest Qt5::Core Qt5::Gui Qt5::Widgets QMidi)
 target_include_directories(texteditorwidgettest PRIVATE
     "${CMAKE_SOURCE_DIR}/src"
     "${CMAKE_SOURCE_DIR}/src/editor"

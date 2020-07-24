@@ -1,5 +1,5 @@
-#include <QApplication>
 #include "TextEditorWidget.h"
+#include <QApplication>
 
 int main(int argc, char **args)
 {
