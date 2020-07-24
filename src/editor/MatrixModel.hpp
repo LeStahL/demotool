@@ -52,9 +52,6 @@ public:
     bool removeRows(int row, int count, const QModelIndex &parent = QModelIndex()) override;
     bool removeColumns(int column, int count, const QModelIndex &parent = QModelIndex()) override;
     
-    void updateColorScheme();
-    QList<QColor> colorScheme();
-    
     void updateAll();
     void update(int row, int column);
     
@@ -79,6 +76,5 @@ public:
     
 private:
     Matrix *m_matrix;
-    QList<QColor> m_color_scheme, m_foreground_scheme;
     QUndoStack m_undo_stack;
 };

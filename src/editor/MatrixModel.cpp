@@ -30,7 +30,6 @@ MatrixModel::MatrixModel(Matrix* m, QObject* parent)
     : QAbstractTableModel(parent)
     , m_matrix(m)
 {
-    updateColorScheme();
 }
 
 MatrixModel::~MatrixModel()
@@ -51,39 +50,6 @@ QVariant MatrixModel::data(const QModelIndex& index, int role) const
 {
     if(role == Qt::DisplayRole)
         return QVariant(m_matrix->value(index.row(), index.column()));
-    else if(role == Qt::BackgroundColorRole)
-    {
-        if(m_matrix->value(index.row(), index.column())!=0)
-        {
-            if(index.row() % 2 == 0)
-                return QVariant(m_foreground_scheme[7]);
-            else
-                return QVariant(m_foreground_scheme[9]);
-        }
-        else 
-        {
-            if(index.row() % 2 == 0)
-                return QVariant(m_color_scheme[1]);
-            else
-                return QVariant(m_color_scheme[3]);
-        }
-    }
-    else if(role == Qt::TextColorRole)
-    {
-        if(m_matrix->value(index.row(), index.column())!=0)
-        {
-            return QVariant(m_foreground_scheme[1]);
-        }
-        else
-            return QVariant(m_color_scheme[9]);
-    }
-    else if(role == Qt::FontRole)
-    {
-        QFont font;
-        font.setBold(true);
-        font.setPointSize(14.);
-        return QVariant(font);
-    }
     return QVariant();
 }
 
@@ -95,24 +61,6 @@ QVariant MatrixModel::headerData(int section, Qt::Orientation orientation, int r
             return QVariant(section);
         else if(orientation == Qt::Vertical)
             return QVariant(m_matrix->rowName(section));
-    }
-    else if(role == Qt::BackgroundRole)
-    {
-        if(section % 2 == 0)
-            return QVariant(m_color_scheme[1]);
-        else
-            return QVariant(m_color_scheme[3]);
-    }
-    else if(role == Qt::TextColorRole)
-    {
-        return QVariant(m_color_scheme[9]);
-    }
-    else if(role == Qt::FontRole)
-    {
-        QFont font;
-        font.setBold(true);
-        font.setPointSize(14.);
-        return QVariant(font);
     }
     return QVariant();
 }
@@ -178,18 +126,6 @@ bool MatrixModel::removeColumns(int column, int count, const QModelIndex& parent
     
     m_undo_stack.push(new MatrixRemoveColumnCommand(this, column));
     return true;
-}
-
-void MatrixModel::updateColorScheme()
-{
-    m_color_scheme = ColorProvider().provide();
-    m_foreground_scheme = ColorProvider().provide();
-    emit dataChanged(index(0,0), index(rowCount(), columnCount()));
-}
-
-QList<QColor> MatrixModel::colorScheme()
-{
-    return m_color_scheme;
 }
 
 void MatrixModel::updateAll()

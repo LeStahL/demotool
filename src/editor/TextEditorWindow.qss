@@ -151,6 +151,14 @@ QSlider::sub-page:horizontal {
     background: %8;
 }
 
+QTableView::item:alternate { 
+    background-color: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 %5, stop:1 %2);
+    color: %10;
+} QTableView::item { 
+    background-color: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 %10, stop:1 %8);
+    color: %2;
+}
+
 QTableView QTableCornerButton::section {
     background-color: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 %7, stop:1 %4);
     border: 2px outset red;
@@ -159,7 +167,12 @@ QTableView QTableCornerButton::section {
 
 QTableView {
     background-color: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 %7, stop:1 %4);
-    alternate-background-color: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 %5, stop:1 %2);
-    selection-background-color: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 %10, stop:1 %8);
     selection-color: %4;
+}
+
+QHeaderView::section {
+    background-color: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 %5, stop:1 %2);
+    color: %10;
+    padding-left: 4px;
+    border: 1px solid %8;
 }

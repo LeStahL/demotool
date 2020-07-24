@@ -36,24 +36,18 @@ public:
     MatrixView(QWidget *parent = 0);
     virtual ~MatrixView();
     void update();
-    
     QSize horizontalHeaderSectionSize();
     
 private slots:
     void addColumnSlot();
     void addRowSlot();
-    void changeSchemeSlot();
-    void removeColumnSlot();
-    void removeRowSlot();
+    void removeColumnSlot(int index);
+    void removeRowSlot(int index);
     
     void keyPressEvent(QKeyEvent *e);
 
 private:
-    QPushButton *m_add_row_button, *m_add_column_button, *m_change_scheme_button;
-    QList<QPushButton *> m_remove_row_buttons;
-    QPushButton * m_remove_column_button;
     int m_column_width;
-    QLabel *m_name_label;
     MatrixHeaderView *m_vertical_header_view, *m_horizontal_header_view;
     QModelIndexList m_copy_buffer;
 };

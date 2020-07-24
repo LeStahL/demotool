@@ -42,8 +42,6 @@ private slots:
     void cancelEditing();
     
 protected:
-    void paintEvent(QPaintEvent *e) override;
-    void paintSection(QPainter *painter, const QRect &rect, int logicalIndex) const;
     void mouseDoubleClickEvent(QMouseEvent *e);
     
 private:
