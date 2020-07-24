@@ -329,10 +329,16 @@
    <property name="text">
     <string>Dark</string>
    </property>
+   <property name="shortcut">
+    <string>F11</string>
+   </property>
   </action>
   <action name="actionLight">
    <property name="text">
     <string>Light</string>
+   </property>
+   <property name="shortcut">
+    <string>F12</string>
    </property>
   </action>
  </widget>
@@ -353,7 +359,9 @@
    <header location="global">MatrixView.hpp</header>
   </customwidget>
  </customwidgets>
- <resources/>
+ <resources>
+  <include location="TextEditorWindow.qrc"/>
+ </resources>
  <connections>
   <connection>
    <sender>actionDark</sender>
