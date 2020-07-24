@@ -27,7 +27,8 @@ public:
     virtual ~ColorProvider();
     
     QList<QColor> provide();
+    QList<QColor> syntaxColors;
     
 private:
-    
+    QList<QColor> provideSyntaxColors();
 };

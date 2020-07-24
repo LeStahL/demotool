@@ -37,14 +37,14 @@ MatrixView::MatrixView(QWidget *parent)
     m_vertical_header_view = new MatrixHeaderView(Qt::Vertical, this);
     setVerticalHeader(m_vertical_header_view);
     
-    verticalHeader()->setMinimumSize(QSize(200,40));
-    horizontalHeader()->setMinimumSize(QSize(40,40));
-    verticalHeader()->setDefaultSectionSize(40);
-    horizontalHeader()->setDefaultSectionSize(40);
+    // verticalHeader()->setMinimumSize(QSize(200,40));
+    // horizontalHeader()->setMinimumSize(QSize(40,40));
+    // verticalHeader()->setDefaultSectionSize(40);
+    // horizontalHeader()->setDefaultSectionSize(40);
     
     m_name_label = new QLabel("SaeGE", this);
     m_name_label->move(0,0);
-    m_name_label->resize(200, 40);
+    // m_name_label->resize(200, 40);
     m_name_label->show();
     
     uint cp = 0x271A;
@@ -154,15 +154,15 @@ void MatrixView::update()
         }
     }
     
-    QList<QColor> palette = ((MatrixModel*)model())->colorScheme();
-    QString stylesheet = "QLabel,QHeaderView,QTableView{font:bold;font-size:14pt;background-color:" + palette[2].name()
-        + ";color:" + palette[9].name() 
-        + ";}QHeaderView::Section{background-color:"+palette[4].name()+";}QPushButton{font:bold;font-size:14pt;background-color:" + palette[8].name()
-        + ";color:" + palette[3].name() 
-        + ";}";
-    setStyleSheet(stylesheet);
-    verticalHeader()->setStyleSheet(stylesheet);
-    horizontalHeader()->setStyleSheet(stylesheet);
+    // QList<QColor> palette = ((MatrixModel*)model())->colorScheme();
+    // QString stylesheet = "QLabel,QHeaderView,QTableView{font:bold;font-size:14pt;background-color:" + palette[2].name()
+    //     + ";color:" + palette[9].name() 
+    //     + ";}QHeaderView::Section{background-color:"+palette[4].name()+";}QPushButton{font:bold;font-size:14pt;background-color:" + palette[8].name()
+    //     + ";color:" + palette[3].name() 
+    //     + ";}";
+    // setStyleSheet(stylesheet);
+    // verticalHeader()->setStyleSheet(stylesheet);
+    // horizontalHeader()->setStyleSheet(stylesheet);
     
     QTableView::update();
 }

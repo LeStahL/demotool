@@ -22,6 +22,7 @@
 
 ColorProvider::ColorProvider()
 {
+    syntaxColors = provideSyntaxColors();
 }
 
 ColorProvider::~ColorProvider()
@@ -40,6 +41,21 @@ QList<QColor> ColorProvider::provide()
     {
         float mixAmount = (float)i/9.;
         color.setHsv(color.hsvHue(), color.hsvSaturation(), mixAmount*255.);
+        colors.push_back(color);
+    }
+
+    return colors;
+}
+
+QList<QColor> ColorProvider::provideSyntaxColors()
+{
+    QColor color = QColor::fromRgb(1.00*255.,0.81*255.,0.57*255.);
+
+    QList<QColor> colors;
+    for(int i=0; i<10; ++i)
+    {
+        float mixAmount = (float)i/9.;
+        color.setHsv(mixAmount*255., color.hsvSaturation(), color.value());
         colors.push_back(color);
     }
 
