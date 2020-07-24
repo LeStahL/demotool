@@ -18,6 +18,7 @@
 #include "ColorProvider.hpp"
 
 #include <QRandomGenerator>
+#include <QDebug>
 
 ColorProvider::ColorProvider()
 {
@@ -29,16 +30,18 @@ ColorProvider::~ColorProvider()
 
 QList<QColor> ColorProvider::provide()
 {
-    QColor any = QColor::fromRgb(QRandomGenerator::global()->generate());
-//     any = QColor::fromRgb(255.*.6+.4*any.red(), 255.*.6+.4*any.green(), 255.*.6+.4*any.blue());
-    
+    QColor color = QColor::fromRgb(1.00*255.,0.81*255.,0.57*255.);
+
+    // Set hue to a random value to achieve different colors each call
+    color.setHsv(QRandomGenerator::global()->generateDouble()*255., color.hsvSaturation(), color.value());
+
     QList<QColor> colors;
     for(int i=0; i<10; ++i)
     {
-        colors.push_back(QColor::fromRgb((float)i/10.*255.+(1.-(float)i)/10.*any.red(),
-                                         (float)i/10.*255.+(1.-(float)i)/10.*any.green(),
-                                         (float)i/10.*255.+(1.-(float)i)/10.*any.blue()));
+        float mixAmount = (float)i/9.;
+        color.setHsv(color.hsvHue(), color.hsvSaturation(), mixAmount*255.);
+        colors.push_back(color);
     }
-    
+
     return colors;
 }

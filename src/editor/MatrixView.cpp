@@ -155,10 +155,10 @@ void MatrixView::update()
     }
     
     QList<QColor> palette = ((MatrixModel*)model())->colorScheme();
-    QString stylesheet = "QLabel,QHeaderView,QTableView{font:bold;font-size:14pt;background-color:" + palette[0].name()
+    QString stylesheet = "QLabel,QHeaderView,QTableView{font:bold;font-size:14pt;background-color:" + palette[2].name()
         + ";color:" + palette[9].name() 
         + ";}QHeaderView::Section{background-color:"+palette[4].name()+";}QPushButton{font:bold;font-size:14pt;background-color:" + palette[8].name()
-        + ";color:" + palette[1].name() 
+        + ";color:" + palette[3].name() 
         + ";}";
     setStyleSheet(stylesheet);
     verticalHeader()->setStyleSheet(stylesheet);

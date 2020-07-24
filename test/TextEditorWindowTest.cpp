@@ -1,10 +1,10 @@
-#include "TextEditorWidget.hpp"
+#include "TextEditorWindow.hpp"
 #include <QApplication>
 
 int main(int argc, char **args)
 {
     QApplication application(argc, args);
-    TextEditorWidget textEditorWidget;
-    textEditorWidget.show();
+    TextEditorWindow textEditorWindow;
+    textEditorWindow.show();
     return application.exec();
 }

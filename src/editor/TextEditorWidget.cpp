@@ -1,5 +1,5 @@
 #include "ui_texteditorwidget.h"
-#include "TextEditorWidget.h"
+#include "TextEditorWidget.hpp"
 
 #include <QString>
 #include <QScrollBar>

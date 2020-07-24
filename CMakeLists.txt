@@ -126,3 +126,44 @@ if(WIN32)
     message("Binary is in: $<TARGET_FILE_DIR:texteditorwidgettest>")
     add_custom_command(TARGET texteditorwidgettest COMMAND ${WINDEPLOYQT_EXECUTABLE} "$<TARGET_FILE:texteditorwidgettest>")
 endif()
+
+# Test TextEditorWindow non-invasively first
+add_executable(texteditorwindowtest 
+    test/TextEditorWindowTest.cpp
+    src/editor/TextEditorWidget.cpp
+    src/editor/TextEditorWindow.cpp
+
+    src/editor/TextEditorWindow.ui
+    src/editor/TextEditorWidget.ui
+
+    demotool.qrc
+
+    # Matrix model/view/controller
+    src/editor/LineEdit.cpp
+    src/editor/LineEditDelegate.cpp
+    src/editor/Matrix.cpp
+    src/editor/MatrixAddColumnCommand.cpp
+    src/editor/MatrixAddRowCommand.cpp
+    src/editor/MatrixChangeRowNameCommand.cpp
+    # TODO: src/editor/MatrixChangeColumnNameCommand.cpp
+    src/editor/MatrixHeaderView.cpp
+    src/editor/MatrixModel.cpp
+    src/editor/ColorProvider.cpp
+    src/editor/MatrixRemoveColumnCommand.cpp
+    src/editor/MatrixRemoveRowCommand.cpp
+    src/editor/MatrixValueChangeCommand.cpp
+    src/editor/MatrixView.cpp
+)
+target_link_libraries(texteditorwindowtest Qt5::Core Qt5::Gui Qt5::Widgets QMidi)
+target_include_directories(texteditorwindowtest PRIVATE
+    "${CMAKE_SOURCE_DIR}/src"
+    "${CMAKE_SOURCE_DIR}/src/editor"
+    "${CMAKE_SOURCE_DUR}"
+)
+if(WIN32)
+    get_filename_component(_qt_bin_dir "${QT_QMAKE_EXECUTABLE}" DIRECTORY)
+    find_program(WINDEPLOYQT_EXECUTABLE NAMES windeployqt.exe HINTS "${_qt_bin_dir}")
+    message("Found windeployqt executable: ${WINDEPLOYQT_EXECUTABLE}")
+    message("Binary is in: $<TARGET_FILE_DIR:texteditorwindowtest>")
+    add_custom_command(TARGET texteditorwindowtest COMMAND ${WINDEPLOYQT_EXECUTABLE} "$<TARGET_FILE:texteditorwindowtest>")
+endif()
