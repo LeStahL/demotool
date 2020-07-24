@@ -16,6 +16,8 @@ class TextEditorWindow : public QMainWindow
     virtual ~TextEditorWindow();
 
     private slots:
+    void randomDarkPalette();
+    void randomLightPalette();
 
     private:
     Ui::TextEditorWindow *ui;

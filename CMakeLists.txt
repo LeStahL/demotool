@@ -134,6 +134,7 @@ add_executable(texteditorwindowtest
     src/editor/TextEditorWindow.cpp
 
     src/editor/TextEditorWindow.ui
+    src/editor/TextEditorWindow.qrc
     src/editor/TextEditorWidget.ui
 
     demotool.qrc

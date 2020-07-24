@@ -114,8 +114,23 @@
     <addaction name="actionAdd_Buffer"/>
     <addaction name="actionRemove_Buffer"/>
    </widget>
+   <widget class="QMenu" name="menuView">
+    <property name="title">
+     <string>View</string>
+    </property>
+    <widget class="QMenu" name="menuPalette">
+     <property name="title">
+      <string>Random Palette</string>
+     </property>
+     <addaction name="actionDark"/>
+     <addaction name="actionLight"/>
+    </widget>
+    <addaction name="menuPalette"/>
+    <addaction name="separator"/>
+   </widget>
    <addaction name="menuFile"/>
    <addaction name="menuEdit"/>
+   <addaction name="menuView"/>
    <addaction name="menuScene"/>
    <addaction name="menuHelp"/>
   </widget>
@@ -310,6 +325,16 @@
     <string>Remove Buffer</string>
    </property>
   </action>
+  <action name="actionDark">
+   <property name="text">
+    <string>Dark</string>
+   </property>
+  </action>
+  <action name="actionLight">
+   <property name="text">
+    <string>Light</string>
+   </property>
+  </action>
  </widget>
  <customwidgets>
   <customwidget>
@@ -317,6 +342,10 @@
    <extends>QWidget</extends>
    <header location="global">TextEditorWidget.hpp</header>
    <container>1</container>
+   <slots>
+    <slot>randomDarkPalette()</slot>
+    <slot>randomLightPalette()</slot>
+   </slots>
   </customwidget>
   <customwidget>
    <class>MatrixView</class>
@@ -325,5 +354,42 @@
   </customwidget>
  </customwidgets>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>actionDark</sender>
+   <signal>triggered()</signal>
+   <receiver>TextEditorWindow</receiver>
+   <slot>randomDarkPalette()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>399</x>
+     <y>299</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionLight</sender>
+   <signal>triggered()</signal>
+   <receiver>TextEditorWindow</receiver>
+   <slot>randomLightPalette()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>randomDarkPalette()</slot>
+  <slot>randomLightPalette()</slot>
+ </slots>
 </ui>
