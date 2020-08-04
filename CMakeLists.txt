@@ -84,4 +84,23 @@ endif()
 
 add_custom_command(TARGET ${PROJECT_NAME} COMMAND ${CMAKE_COMMAND} -E copy_directory "${CMAKE_SOURCE_DIR}/data" "$<TARGET_FILE_DIR:${PROJECT_NAME}>/data")
 
+set(FlatGraphicsEditorWindowTest_SOURCES
+    test/FlatGraphicsEditorWindowTest.cpp
+    src/2d/FlatGraphicsEditorWindow.cpp
+    src/2d/FlatGraphicsEditorWindow.ui
+    src/2d/Line.cpp
+    src/2d/Node.cpp
+    # src/2d/Path.cpp
+    src/2d/QuadraticSpline.cpp
+    src/2d/QuadraticSplineControlPointChangeUndoCommand.cpp
+    src/2d/QuadraticSplineModel.cpp
+    src/2d/QuadraticSplineView.cpp
+)
 
+add_executable(FlatGraphicsEditorWindowTest ${FlatGraphicsEditorWindowTest_SOURCES})
+target_include_directories(FlatGraphicsEditorWindowTest PRIVATE
+    "${CMAKE_SOURCE_DIR}/src"
+    "${CMAKE_SOURCE_DIR}/test"
+    "${CMAKE_SOURCE_DIR}/src/2d"
+)
+target_link_libraries(FlatGraphicsEditorWindowTest Qt5::Core Qt5::Gui Qt5::Widgets)

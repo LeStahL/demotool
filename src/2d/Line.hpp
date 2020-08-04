@@ -7,7 +7,10 @@
 class Line : public Node
 {
     public:
-    QuadraticSpline(QPointF p0, QPointF p1, QPointF p2);
+    Line(QPointF p0 = QPointF(0,0), QPointF p1 = QPointF(0,0));
+    ~Line() = default;
+
+    QString toGLSL(QString variableName = QString("d")) override;
 
     QPointF p0, p1;
 };

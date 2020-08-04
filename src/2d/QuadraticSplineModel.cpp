@@ -33,16 +33,16 @@ QVariant QuadraticSplineModel::data(const QModelIndex &index, int role) const
     return QVariant();
 }
 
-QVariant QuadraticSplineModel::headerData(int section, Qt::orientation orientation, int role) const
+QVariant QuadraticSplineModel::headerData(int section, Qt::Orientation orientation, int role) const
 {
     if(role == Qt::DisplayRole)
     {
-        if(index.row() == 0) return QVariant(QString("p0.x"));
-        else if(index.row() == 1) return QVariant(QString("p0.y"));
-        else if(index.row() == 2) return QVariant(QString("p1.x"));
-        else if(index.row() == 3) return QVariant(QString("p1.y"));
-        else if(index.row() == 4) return QVariant(QString("p2.x"));
-        else if(index.row() == 5) return QVariant(QString("p2.y"));
+        if(section == 0) return QVariant(QString("p0.x"));
+        else if(section == 1) return QVariant(QString("p0.y"));
+        else if(section == 2) return QVariant(QString("p1.x"));
+        else if(section == 3) return QVariant(QString("p1.y"));
+        else if(section == 4) return QVariant(QString("p2.x"));
+        else if(section == 5) return QVariant(QString("p2.y"));
     }
     return QVariant();
 }
